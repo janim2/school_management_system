@@ -63,6 +63,10 @@
                 font-size: 12px;
                 color: black;
             }
+
+            .gridbase{
+                margin-top: 40px;
+            }
         </style>
 
         <div style="color: red">
@@ -79,64 +83,65 @@
             </p>
 
             <div class="grid_18">
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1">
                         <img src="assets/dashboard/Content/images/profile.png" id="icon1" />
                     </div>
-                    <a class="dashBtn">
-                        <div id="txtbox2"><strong>Profile</strong></div>
+                    <a class="dashBtn" href="profile.php">
+                        <div id="txtbox2"></br></br></br><strong>Profile</strong></div>
                     </a>
 
                 </div>
-                <div class="col-md-3 menu_selection">
+
+                <div class="col-md-4 gridbase">
                     <div class="circle1">
                         <img src="assets/dashboard/Content/images/online_registration.png" id="icon1" />
                     </div>
                     <a class="dashBtn" href="course_registration.php">
-                        <div id="txtbox2"><strong>Course Registration</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Course Registration</strong></div>
                     </a>
 
                 </div>
 
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/registrationslip.png" />
                     </div>
 
                     <a class="dashBtn" href="/students/OnlineRegistration/AcadSemSelection">
-                        <div id="txtbox2"><strong>Registration Slip</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Registration Slip</strong></div>
                     </a>
                 </div>
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class=" circle1">
                         <img src="assets/dashboard/Content/images/check_results.png" id="icon1" />
                     </div>
                     <a class="dashBtn" href="/students/ResultCheck/AcadSemSelection">
-                        <div id="txtbox2"><strong>Check Results</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Check Results</strong></div>
                     </a>
                 </div>
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/assess_tutor.png" /></div>
                     <a class="dashBtn" href="/students/LecturerAssessment/AssessInstructions">
-                        <div id="txtbox2"><strong>Assess Tutor</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Assess Tutor</strong></div>
                     </a>
                 </div>
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/fees_transaction.png" />
                     </div>
                     <a class="dashBtn" href="/students/Fees">
-                        <div id="txtbox2"><strong>Bill and Payments</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Bill and Payments</strong></div>
                     </a>
                 </div>
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/biometricicon.png" /></div>
                     <a class="dashBtn" href="/students/Home/StudentBioRegistration">
-                        <div id="txtbox2"><strong>Biometric Verification</strong></div>
+                        <div id="txtbox2"></br></br></br><strong>Biometric Verification</strong></div>
                     </a>
                 </div>
-                <div class="col-md-3 menu_selection">
+                <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/graduation.png" /></div>
                     <a class="dashBtn" href="/students/Home/Graduation">
-                        <div id="txtbox2"><strong> Graduation</strong></div>
+                        <div id="txtbox2"></br></br></br><strong> Graduation</strong></div>
                     </a>
                 </div>
             </div>
@@ -162,3 +167,7 @@
         </script>
     </div>
 </div>
+
+<?php
+    include_once 'partials/footer.php';
+?>

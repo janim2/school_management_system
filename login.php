@@ -6,7 +6,8 @@
     <title>St. Patrick's NMTC Student login</title>
     <link rel="stylesheet" href="assets/css/form.css">
   </head>
-  <body>
+    
+  <body style="background: black">
     <div class="center">
       <h1>Student Login</h1>
       <form method="post" enctype="multipart/form-data" id="login_form">
@@ -36,6 +37,7 @@
     </div>
 
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="assets/dashboard/Scripts/sweetalert.min.js"></script>
 
     <script>
         $(document).on('submit', '#login_form', function(event){
@@ -52,7 +54,13 @@
                   location.href="dashboard.php";
                 }
                 else{
-                  alert(data);
+                  swal({
+                      title: 'Error',
+                      text: data,
+                      icon: 'error',
+                      buttons: ["OK"],
+                      closeOnClickOutside: true,
+                  })
                 }
             }
           });

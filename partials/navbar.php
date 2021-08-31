@@ -121,7 +121,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/students/">
+                        <a class="navbar-brand" href="dashboard.php">
                             <img src="assets/dashboard/Content/images/logo55.png" class="xs-hidden">
                             <div id="knustname">SPNMTC <div style="display:inline-block;" class="xs-hidden">APPS</div>
                                 PORTAL | STUDENTS</div>

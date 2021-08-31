@@ -1,18 +1,20 @@
 <?php
     include_once 'partials/navbar.php';
     require_once 'database/config.php';
+    require_once 'helpers/counters.php';
     require_once 'helpers/functions.php';
 
     $program_id = $_SESSION['program'];
 
     //assuming that all semesters are 2 for now. 
 
-    $query = "SELECT * FROM courses WHERE program_id = :program_id AND academic_year = :year AND semester = 2";
+    $query = "SELECT * FROM courses WHERE program_id = :program_id AND academic_year = :year AND semester = :current_sem";
     $statement = $con->prepare($query);
     $statement->execute(
         array(
-            ":program_id" => $program_id,
-            ":year" => fetchCurrentAcademicYear($con)
+            ":program_id"   => $program_id,
+            ":year"         => fetchCurrentAcademicYear($con),
+            ":current_sem"  => fetchCurrentSemester($con),
         )
     );
 
@@ -221,7 +223,7 @@
                 </div>
                 <div class="col-sm-6 col-xs-12 k-wrapper k-center">
 
-                    <button class="btn btn-danger col-sm-12" id="DeleteAll"><i class="fa fa-trash"></i> Delete All
+                    <button class="btn btn-danger col-sm-12" id="DeleteAll" onclick="deleteAllCourses()"><i class="fa fa-trash"></i> Delete All
                         Selected Courses</button>
 
                     <div>
@@ -231,7 +233,7 @@
                                 <h4 class="k-caption">
                                     <span id="registeredCoursesDisplayHeader">YOUR COURSES</span>
                                     <br class="visible-sm visible-xs" />
-                                    : <span style="font-size:14px" class="text-danger">Maximum ( 21 credits )</span>
+                                    : <span style="font-size:14px" class="text-danger">Maximum ( <?= calculateCourseCredit($con, $_SESSION['user_id'], $_SESSION['program']); ?> credits )</span>
                                     : <span style="font-size:14px" class="text-info">Minimum ( 15 credits )</span>
                                 </h4>
                                 <div class="row k-header">
@@ -292,18 +294,32 @@
                                 </div>
                                 <div class="row k-body">
                                     <div class="k-cell k-50 "><b>UnDeferred Credits: </b></div>
-                                    <div class="k-cell k-50 totalundeferredcell">21</div>
+                                    <div class="k-cell k-50 totalundeferredcell">
+                                        <?= calculateCourseCredit($con, $_SESSION['user_id'], $_SESSION['program']); ?>
+                                    </div>
                                 </div>
                                 <div class="row k-body">
                                     <div class="k-cell k-50"><b>Number of Courses: </b></div>
-                                    <div class="k-cell k-50 numcoursescell">7</div>
+                                    <div class="k-cell k-50 numcoursescell">
+                                        <?= countCourses($con, $_SESSION['user_id'], $_SESSION['program']);?>
+                                    </div>
                                 </div>
                                 <div class="row k-body">
                                     <div class="k-cell k-50"><b>Total Credits:</b></div>
-                                    <div class="k-cell k-50 totalcreditscell">21</div>
+                                    <div class="k-cell k-50 totalcreditscell">
+                                        <?= calculateCourseCredit($con, $_SESSION['user_id'], $_SESSION['program']); ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="k-center">
+                            <a class="btn btn-large btn-primary col-sm-6 hidden-xs" href="dashboard.php">&lt;&lt; Return to Main Menu</a>
+                            <br class="visible-sm" />
+                            <br class="visible-sm" />
+                            <input class="btn btn-large btn-success col-sm-6 col-xs-12" id="PrintRegSlip" onclick="printregslip()" name="PrintRegSlip" type="submit" value="Save and Print Registration Slip" />
+                        </div>
+
 
                         <div id="divinvisible" style="display: none">
                             <div id="divhead">
@@ -311,13 +327,13 @@
                                 <table class="table table-bordered table-striped">
                                     <tr>
                                         <td class="thw100"><img width="54" height="80" alt="logo"
-                                                src="/students/Content/images/logo.png" /></td>
+                                                src="assets/dashboard/Content/images/logo55.png" /></td>
                                         <td></td>
                                         <td>
-                                            <div id="head1">KWAME NKRUMAH UNIVERSITY OF SCIENCE AND TECHNOLOGY, KUMASI
+                                            <div id="head1">St. Patrick's Nursing and Mid-wifery Training College
                                             </div>
                                             <div id="head2">N/A</div>
-                                            <div id="head3">2020-2021, SECOND SEMESTER REGISTRATION</div>
+                                            <div id="head3"><?= fetchCurrentAcademicYear($con); ?>, SECOND SEMESTER REGISTRATION</div>
                                         </td>
                                     </tr>
                                 </table>
@@ -380,7 +396,7 @@
 
                             //newwin = window.open('', 'printwin', 'left=100,top=100,width=800,height=1200');
                             newwin.document.write('<HTML>\n<HEAD>\n');
-                            newwin.document.write('<TITLE>KNUST Online Registration System</TITLE>\n');
+                            newwin.document.write('<TITLE> St. Patrick\'s Nursing and Mid-wifery Training College </TITLE>\n');
                             newwin.document.write('<script>\n');
                             newwin.document.write('function chkstate(){\n');
                             newwin.document.write('if(document.readyState=="complete"){\n');
@@ -408,7 +424,7 @@
 
 
 
-                            document.getElementById('logoutForm').submit();
+                            // document.getElementById('logoutForm').submit();
                         };
 
 
@@ -450,15 +466,28 @@
                     url: 'database/course_registration/register_courses.php',
                     method: 'POST',
                     success: function (data) {
-                        if (data == "success") {
+                        if (data.includes("success")) {
                             swal({
                                 title: 'Success',
                                 text: 'Courses registered successfully',
                                 icon: 'success',
+                                closeOnClickOutside: true,
+                            }).then(function(confirmed){
+                                if(confirmed){
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else if(data.includes('already')){
+                            swal({
+                                title: 'Error',
+                                text: "Courses already registered",
+                                icon: 'error',
                                 buttons: ["OK"],
                                 closeOnClickOutside: true,
                             })
-                        }else{
+                        }
+                        else{
                             swal({
                                 title: 'Error',
                                 text: data,
@@ -493,6 +522,45 @@
                             swal({
                                 title: 'Success',
                                 text: 'Course deleted successfully',
+                                icon: 'success',
+                                closeOnClickOutside: false,
+                            }).then(function(confirmed){
+                                if(confirmed){
+                                    location.reload();
+                                }
+                            });
+                        }else{
+                            swal({
+                                title: 'Error',
+                                text: data,
+                                icon: 'error',
+                                buttons: ["OK"],
+                                closeOnClickOutside: true,
+                            })
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteAllCourses(){
+        swal({
+            title: 'Delete All Courses',
+            text: 'Are you sure you want to delete all Registered courses?',
+            icon: 'info',
+            buttons: ["No", "Yes"],
+            closeOnClickOutside: false,
+        }).then(function (confirmed) {
+            if (confirmed) {
+                $.ajax({
+                    url: 'database/course_registration/deleteall_courses.php',
+                    method: 'POST',
+                    success: function (data) {
+                        if (data.includes("success")) {
+                            swal({
+                                title: 'Success',
+                                text: 'Courses deleted successfully',
                                 icon: 'success',
                                 closeOnClickOutside: false,
                             }).then(function(confirmed){
