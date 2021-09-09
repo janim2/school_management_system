@@ -133,13 +133,13 @@
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/biometricicon.png" /></div>
-                    <a class="dashBtn" href="#">
+                    <a class="dashBtn" href="biometric_registration.php">
                         <div id="txtbox2"></br></br></br><strong>Biometric Verification</strong></div>
                     </a>
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/graduation.png" /></div>
-                    <a class="dashBtn" href="#">
+                    <a class="dashBtn" href="graduation.php">
                         <div id="txtbox2"></br></br></br><strong> Graduation</strong></div>
                     </a>
                 </div>
