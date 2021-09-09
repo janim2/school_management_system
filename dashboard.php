@@ -1,6 +1,5 @@
 <?php
     include_once 'partials/navbar.php';
-
 ?>
 <div id="content">
     <div class="container">
@@ -107,7 +106,7 @@
                     <div class="circle1"><img src="assets/dashboard/Content/images/registrationslip.png" />
                     </div>
 
-                    <a class="dashBtn" href="/students/OnlineRegistration/AcadSemSelection">
+                    <a class="dashBtn" href="registration_slip.php">
                         <div id="txtbox2"></br></br></br><strong>Registration Slip</strong></div>
                     </a>
                 </div>
@@ -115,32 +114,32 @@
                     <div class=" circle1">
                         <img src="assets/dashboard/Content/images/check_results.png" id="icon1" />
                     </div>
-                    <a class="dashBtn" href="/students/ResultCheck/AcadSemSelection">
+                    <a class="dashBtn" href="check_results.php">
                         <div id="txtbox2"></br></br></br><strong>Check Results</strong></div>
                     </a>
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/assess_tutor.png" /></div>
-                    <a class="dashBtn" href="/students/LecturerAssessment/AssessInstructions">
+                    <a class="dashBtn" href="access_tutor.php">
                         <div id="txtbox2"></br></br></br><strong>Assess Tutor</strong></div>
                     </a>
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/fees_transaction.png" />
                     </div>
-                    <a class="dashBtn" href="/students/Fees">
+                    <a class="dashBtn" href="bills_and_payments.php">
                         <div id="txtbox2"></br></br></br><strong>Bill and Payments</strong></div>
                     </a>
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/biometricicon.png" /></div>
-                    <a class="dashBtn" href="/students/Home/StudentBioRegistration">
+                    <a class="dashBtn" href="#">
                         <div id="txtbox2"></br></br></br><strong>Biometric Verification</strong></div>
                     </a>
                 </div>
                 <div class="col-md-4 gridbase">
                     <div class="circle1"><img src="assets/dashboard/Content/images/graduation.png" /></div>
-                    <a class="dashBtn" href="/students/Home/Graduation">
+                    <a class="dashBtn" href="#">
                         <div id="txtbox2"></br></br></br><strong> Graduation</strong></div>
                     </a>
                 </div>
