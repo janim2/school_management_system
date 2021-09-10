@@ -27,7 +27,8 @@
             $_SESSION['username']   = $_POST['username'];
             $_SESSION['program']    = $user_details['program'];
             $_SESSION['dob']        = $user_details['dob'];
-            
+            $_SESSION['email']      = $user_details['school_email'];
+
             echo "success";
         }
 
