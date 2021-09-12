@@ -1,5 +1,6 @@
 # school_management_system
-## A school management system created as a KNUST project. It works just as the KNUST student portal does.
+
+A school management system created as a KNUST project. It works just as the KNUST student portal does.
 
 # images
 <img src="screenshot/1.png" width="30%"> <img src="screenshot/2.png" width="30%">
