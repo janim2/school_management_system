@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 31, 2021 at 04:34 AM
+-- Generation Time: Sep 12, 2021 at 11:55 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -38,6 +38,42 @@ CREATE TABLE `academic_year` (
 
 INSERT INTO `academic_year` (`id`, `name`) VALUES
 (1, '2019/2020');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assessed_lecturers`
+--
+
+CREATE TABLE `assessed_lecturers` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `lecturer_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `date_` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assigned_courses`
+--
+
+CREATE TABLE `assigned_courses` (
+  `id` int(11) NOT NULL,
+  `lecturer_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assigned_courses`
+--
+
+INSERT INTO `assigned_courses` (`id`, `lecturer_id`, `course_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 1, 3),
+(4, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -106,6 +142,71 @@ CREATE TABLE `current_semester` (
 
 INSERT INTO `current_semester` (`id`, `semester`) VALUES
 (1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fees`
+--
+
+CREATE TABLE `fees` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `academic_year` int(11) NOT NULL,
+  `fee_amount` double NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fees`
+--
+
+INSERT INTO `fees` (`id`, `user_id`, `academic_year`, `fee_amount`, `date`) VALUES
+(1, 1, 1, 2001.99, '2021-09-12 12:08:49'),
+(2, 2, 1, 9000.34, '2021-09-12 12:08:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fee_transactions`
+--
+
+CREATE TABLE `fee_transactions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `academic_year` int(11) NOT NULL,
+  `amount_paid` double NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fee_transactions`
+--
+
+INSERT INTO `fee_transactions` (`id`, `user_id`, `academic_year`, `amount_paid`, `date`) VALUES
+(1, 1, 1, 39, '2021-09-12 12:16:37'),
+(2, 2, 1, 800, '2021-09-12 12:16:37'),
+(3, 1, 1, 59.8, '2021-09-12 12:16:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lecturers`
+--
+
+CREATE TABLE `lecturers` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `lecturers`
+--
+
+INSERT INTO `lecturers` (`id`, `image`, `name`) VALUES
+(1, '', 'Dr. Ibrahim Absalam'),
+(2, '', 'Rev. Dr. Michael Benson');
 
 -- --------------------------------------------------------
 
@@ -182,8 +283,7 @@ INSERT INTO `registered_courses` (`id`, `user_id`, `course`, `time`) VALUES
 (63, 1, 6, '2021-08-31 03:30:37'),
 (64, 1, 7, '2021-08-31 03:30:37'),
 (65, 1, 1, '2021-08-31 03:39:01'),
-(66, 1, 3, '2021-08-31 03:39:01'),
-(67, 1, 5, '2021-08-31 03:39:01');
+(66, 1, 3, '2021-08-31 03:39:01');
 
 -- --------------------------------------------------------
 
@@ -210,6 +310,31 @@ INSERT INTO `religion` (`id`, `name`) VALUES
 (7, 'Muslim'),
 (8, 'Other'),
 (9, 'Pagan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `results`
+--
+
+CREATE TABLE `results` (
+  `id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `mark` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `course_id`, `user_id`, `mark`) VALUES
+(1, 1, 1, '90'),
+(2, 2, 1, '50'),
+(3, 3, 1, '50'),
+(4, 4, 1, '70'),
+(5, 5, 1, '66'),
+(6, 6, 1, '87');
 
 -- --------------------------------------------------------
 
@@ -246,7 +371,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `image`, `title`, `firstname`, `middlename`, `lastname`, `program`, `username`, `dob`, `school_email`, `phone_number`, `other_phone_numbers`, `other_email`, `gender`, `country`, `residential_address`, `postal_address`, `religion`, `region`, `denomination`, `password`) VALUES
-(1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM_m8x3r8CvvidSewBcONHWb8YyNQEwFu0Rw&usqp=CAU', 'Master', 'Theophilus', 'Addo', 'Lumor', '1', 'taalumor', '2020-09-16', 'knustemail@gmail.com', '0278989898', '0205455445', 'other@gmail.com', 'Male', 'Ghana', 'C2, Banhui street, Offinso-Ashanti, Ghana', 'P.O.Box 17, Offinso - Ashanti', 8, 13, 4, 't2umor'),
+(1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM_m8x3r8CvvidSewBcONHWb8YyNQEwFu0Rw&usqp=CAU', 'Master', 'Theophilus', 'Addo', 'Lumor', '1', 'taalumor', '2020-09-16', 'knustemail@gmail.com', '0278989898', '0205455445', 'other@gmail.com', 'Male', 'Ghana', 'C2, Banhui street, Offinso-Ashanti, Ghana', 'P.O.Box 17, Offinso - Ashanti', 8, 13, 4, 'password'),
 (2, '', 'Master', 'Jesse', 'Joe', 'Anim', '2', 'user', '2021-08-10', '', '0', '0', '', '', '', '', '', 0, 0, 0, 'password');
 
 --
@@ -257,6 +382,18 @@ INSERT INTO `students` (`id`, `image`, `title`, `firstname`, `middlename`, `last
 -- Indexes for table `academic_year`
 --
 ALTER TABLE `academic_year`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assessed_lecturers`
+--
+ALTER TABLE `assessed_lecturers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assigned_courses`
+--
+ALTER TABLE `assigned_courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -275,6 +412,24 @@ ALTER TABLE `courses`
 -- Indexes for table `current_semester`
 --
 ALTER TABLE `current_semester`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fees`
+--
+ALTER TABLE `fees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fee_transactions`
+--
+ALTER TABLE `fee_transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lecturers`
+--
+ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -302,6 +457,12 @@ ALTER TABLE `religion`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `results`
+--
+ALTER TABLE `results`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -316,6 +477,18 @@ ALTER TABLE `students`
 --
 ALTER TABLE `academic_year`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `assessed_lecturers`
+--
+ALTER TABLE `assessed_lecturers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `assigned_courses`
+--
+ALTER TABLE `assigned_courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `church_denomination`
@@ -334,6 +507,24 @@ ALTER TABLE `courses`
 --
 ALTER TABLE `current_semester`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fees`
+--
+ALTER TABLE `fees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fee_transactions`
+--
+ALTER TABLE `fee_transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `lecturers`
+--
+ALTER TABLE `lecturers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -358,6 +549,12 @@ ALTER TABLE `registered_courses`
 --
 ALTER TABLE `religion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `results`
+--
+ALTER TABLE `results`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`

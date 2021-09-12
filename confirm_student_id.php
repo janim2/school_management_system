@@ -31,7 +31,7 @@
 <script>
     function confirm_student_id(){
         $.ajax({
-            url: "database/register_and_login/confirm_student_id.php",
+            url: "database/password_management/confirm_student_id.php",
             method: "POST",
             data:{
                 "entered_id" : $('#STUDENT_ID').val()
