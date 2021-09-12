@@ -169,6 +169,10 @@
                 width: 80%;
             }
 
+            .table_ tr{
+                margin-top: 50px;
+            }
+
             @media (min-width: 768px) {
                 .k-cell {}
 
@@ -326,14 +330,14 @@
 
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <td class="thw100"><img width="54" height="80" alt="logo"
+                                        <td class="thw100"><img width="80" height="80" alt="logo"
                                                 src="assets/dashboard/Content/images/logo55.png" /></td>
                                         <td></td>
                                         <td>
                                             <div id="head1">St. Patrick's Nursing and Mid-wifery Training College
                                             </div>
                                             <div id="head2">N/A</div>
-                                            <div id="head3"><?= fetchCurrentAcademicYear($con); ?>, SECOND SEMESTER REGISTRATION</div>
+                                            <div id="head3"><?= fetchCurrentAcademicYearByName($con); ?>, <?= nameCurrentSemester(fetchCurrentSemester($con));?> REGISTRATION</div>
                                         </td>
                                     </tr>
                                 </table>
@@ -344,16 +348,16 @@
                                         <tr>
                                             <td class="thw60"></td>
                                             <td class="thw60">Name:</td>
-                                            <td class="thw220">LUMOR Theophilus Akwasi Addo</td>
+                                            <td class="thw220"><?= $name; ?></td>
                                             <td class="thw70">Year:</td>
                                             <td class="thw220"></td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>Student Id:</td>
-                                            <td>20680372</td>
+                                            <td><?= $_SESSION['user_id']; ?></td>
                                             <td>Programme:</td>
-                                            <td>DIP. INFORMATION TECHNOLOGY (IDL) (WEEKEND)</td>
+                                            <td><?= fetchProgramNameUsingID($con, $_SESSION['program']); ?></td>
                                         </tr>
 
                                         <tr>
@@ -361,13 +365,13 @@
                                             <td>Fees Paid:</td>
                                             <td>2750.00</td>
                                             <td>Date:</td>
-                                            <td>7/21/2021 8:15:49 AM</td>
+                                            <td><?= date('Y-m-d H:m:s')?></td>
                                         </tr>
 
                                         <tr>
                                             <td></td>
                                             <td>Email:</td>
-                                            <td>taalumor@st.knust.edu.gh</td>
+                                            <td><?= $_SESSION['email']; ?></td>
                                             <td>Option:</td>
                                             <td>General</td>
                                         </tr>
@@ -376,6 +380,27 @@
                                 </div>
                             </div>
                             <div id="divbodyprint">
+                                </br></br>
+                                
+                                <table class="table_">
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Credits</th>
+                                        <th>Defer</th>
+                                    </tr>
+
+                                    <?php foreach($registered_result as $registered_results){?>
+                                            <tr>
+                                                <td><?= fetchCourseDetailsUsingID($con, $registered_results['course'], 'code')?></td>
+                                                <td><?= fetchCourseDetailsUsingID($con, $registered_results['course'], 'name')?></td>
+                                                <td><?= fetchCourseDetailsUsingID($con, $registered_results['course'], 'credits') ?></td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                
+                                </table> 
                             </div>
                         </div>
                     </div>
@@ -421,9 +446,6 @@
                             newwin.document.write('</BODY>\n');
                             newwin.document.write('</HTML>\n');
                             newwin.document.close();
-
-
-
                             // document.getElementById('logoutForm').submit();
                         };
 

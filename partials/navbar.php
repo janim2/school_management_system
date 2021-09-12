@@ -4,7 +4,8 @@
     }else{
         header('Location: login.php');
     }
-    $name = $_SESSION['firstname'] . ' ' . $_SESSION['middlename'] . ' ' . $_SESSION['lastname'];
+    $name       = $_SESSION['firstname'] . ' ' . $_SESSION['middlename'] . ' ' . $_SESSION['lastname'];
+    $org_name   = "St. Patrick's Nursing and Mid-wifery Training College";
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +131,7 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="dashboard.php">Home</a></li>
-                            <li><a href="/students/Home/About">About</a></li>
+                            <li><a href="#">About</a></li>
                         </ul>
                         <form action="/students/Account/LogOff" class="navbar-right" id="logoutForm" method="post">
                             <input name="__RequestVerificationToken" type="hidden"
@@ -141,7 +142,7 @@
                                     <a>Hello <?= $name; ?></a>
                                 </li>
                                 <li>
-                                    <a href="/students/Account/ForgotPassword">Change Password</a>
+                                    <a href="confirm_student_id.php">Change Password</a>
                                 </li>
 
                                 <li class="hand_cursor" onclick="Logout()">
