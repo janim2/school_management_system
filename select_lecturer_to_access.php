@@ -49,10 +49,12 @@
                             <?php
                                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($result as $results){?>
-                                    <tr data-coursecode="DIT 222" data-lecturername="Dr. ABDUL-SALAAM GADDAFI" class="hand-cursor"
-                                        onclick="gotoAssessment(this);">
-                                        <td><span style="font-weight:bolder">Code</span>
-                                            <br /> Course Name
+                                    <tr data-coursecode="<?= determineCourseFromLecturerID($con, $results['id']); ?>" data-lecturername="<?= strtoupper($results['name']);?>" class="hand-cursor"
+                                        data-lecturer_id="<?=$results['id']?>" onclick="gotoAssessment(this);">
+                                        <td><span style="font-weight:bolder">
+                                                <?=fetchCourseDetailsUsingID($con,determineCourseFromLecturerID($con, $results['id']),'code');?>
+                                            </span>
+                                            <br /> <?= fetchCourseDetailsUsingID($con,determineCourseFromLecturerID($con, $results['id']),'name');?>
                                             <br /><span style="font-weight:bolder; color:darkgreen"> <?= strtoupper($results['name']);?>
                                                 </span>
                                             <p style="padding-top:30px"><button class="btn btn-primary">Assess Lecturer <span
@@ -88,8 +90,9 @@
             function gotoAssessment(e) {
                 var CourseCode = $(e).attr("data-coursecode");
                 var LecturerName = $(e).attr("data-lecturername");
-                window.location.href = '/students/LecturerAssessment/AssessmentForm' + "?CourseCode=" +
-                    CourseCode;
+                var lecturer_id = $(e).attr("data-lecturer_id");
+                window.location.href = 'answer_assessment_tutor.php' + "?CourseCode=" +
+                    CourseCode + "&name=" + LecturerName + "&iger=" + lecturer_id; 
             }
         </script>
 

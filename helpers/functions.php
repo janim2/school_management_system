@@ -131,6 +131,20 @@
 
     }
 
+    function determineCourseFromLecturerID($con, $lecturer_id){
+        $query = "SELECT * FROM assigned_courses WHERE lecturer_id = :id";
+        $statement = $con->prepare($query);
+
+        $statement->execute(
+            array(
+                ":id"       => $lecturer_id,
+            )
+        );
+
+        $result = $statement->fetch();
+        return $result['course_id'];
+    }
+
 
 
 ?>
