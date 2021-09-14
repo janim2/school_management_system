@@ -17,6 +17,7 @@
 
     $old_p_result = $old_p_statement->fetch();
     if($old_p_result['password'] == $old_password){
+       
         if($new_password == $confirm_password){
             $change_query = "UPDATE students SET password = :pass WHERE id = :id"; 
             $change_statement = $con->prepare($change_query);
@@ -37,6 +38,7 @@
         else{
             echo "Password do not match";
         }
+        
     }
     else{
         echo "Incorrect password";

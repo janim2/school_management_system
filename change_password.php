@@ -6,7 +6,7 @@
 
 <div id="content">
     <div class="container">
-        <form method="POST">
+        <!-- <form method="POST"> -->
             <input
                 name="" type="hidden"
                 value="" />
@@ -15,19 +15,19 @@
             <div class="form-group">
                 <label class="col-md-2" for="PREV_PASSWORD">Previous password</label>
                 <div class="col-md-10">
-                    <input class="form-control" id="PREV_PASSWORD" name="PREV_PASSWORD" type="password" required/>
+                    <input class="form-control" id="PREV_PASSWORD" name="PREV_PASSWORD" type="password" min-length="8" required/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2" for="NEW_PASSWORD">New password</label>
                 <div class="col-md-10">
-                    <input class="form-control" id="NEW_PASSWORD" name="NEW_PASSWORD" type="password" required/>
+                    <input class="form-control" id="NEW_PASSWORD" name="NEW_PASSWORD" type="password" min-length="8" required/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2" for="CONFIRM_PASSWORD">Confirm password</label>
                 <div class="col-md-10">
-                    <input class="form-control" id="CONFIRM_PASSWORD" name="CONFIRM_PASSWORD" type="password" required/>
+                    <input class="form-control" id="CONFIRM_PASSWORD" name="CONFIRM_PASSWORD" type="password"  min-length="8" required/>
                 </div>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
                     <button class="btn btn-default" value="Continue" onclick="change_password()">Confirm</button>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>
 
@@ -50,10 +50,7 @@
         var new_password    = $('#NEW_PASSWORD').val()  ;
         var old_password    = $('#CONFIRM_PASSWORD').val();
 
-        if(p_password == ""){
-
-        }
-        else if(new_password == ""){
+        if(new_password == ""){
 
         }
         else{
@@ -66,7 +63,7 @@
                     "CONFIRM_PASSWORD"  : old_password,    
                 }, 
                 success: function(data){
-                    // alert(data);
+                    //alert(data);
                     if(data.includes("success")){
                         swal({
                         title: 'Success',
